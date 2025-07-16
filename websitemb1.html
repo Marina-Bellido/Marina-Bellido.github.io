@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marina Bellido Rodriguez Portfolio</title>
+  <!-- Hardware Engineer Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Basic Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      font-family: 'Roboto Mono', monospace;
+      background: #add8e6;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      scroll-snap-type: y mandatory;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Sticky Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 0, 30, 0.9);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin: 0 1rem;
+    }
+
+    nav ul li a {
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 5px;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: #9b59b6;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* Scroll Indicator Arrows */
+    #scrollUp {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #9b59b6;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    #scrollDown {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #9b59b6;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    /* Home Section with Spotlight Mask */
+    #home {
+      opacity: 0;
+      transition: opacity 1.2s ease-out;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: #add8e6 url("plane2.jpeg") center center / cover no-repeat;
+      scroll-snap-align: start;
+    }
+
+    #home.in-view {
+      opacity: 1;
+    }
+
+    #home img {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1000%;
+      /* or smaller */
+      height: auto;
+      opacity: 0.4;
+      /* make it a bit transparent */
+      z-index: 1;
+      /* behind the text */
+    }
+
+    #home .content {
+      position: relative;
+      z-index: 2;
+      /* above the image */
+    }
+
+    /* Mask Overlay */
+    #maskOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      z-index: 3;
+      pointer-events: none;
+      mask-image: linear-gradient(black, black);
+      -webkit-mask-image: linear-gradient(black, black);
+      transition: mask-image 0.1s ease, -webkit-mask-image 0.1s ease;
+    }
+
+    /* Home Content */
+    #home .content {
+      position: relative;
+      z-index: 4;
+    }
+
+    #home h1 {
+      position: relative;
+      display: inline-block;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+      z-index: 4;
+    }
+
+    #home h1::before,
+    #home h1::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    #home h1:hover {
+      transform: scale(1.1);
+    }
+
+    #home h1:hover::before,
+    #home h1:hover::after {
+      opacity: 1;
+    }
+
+    #home h1::before {
+      color: #9b59b6;
+      animation: glitchAnim 1s infinite linear alternate-reverse;
+    }
+
+    #home h1::after {
+      color: #8e44ad;
+      animation: glitchAnim 1s infinite linear;
+    }
+
+    @keyframes glitchAnim {
+      0% {
+        clip: rect(10px, 9999px, 115px, 0);
+        transform: translate(0);
+      }
+
+      20% {
+        clip: rect(5px, 9999px, 80px, 0);
+        transform: translate(-5px, 5px);
+      }
+
+      40% {
+        clip: rect(20px, 9999px, 90px, 0);
+        transform: translate(5px, -5px);
+      }
+
+      60% {
+        clip: rect(10px, 9999px, 115px, 0);
+        transform: translate(-5px, 5px);
+      }
+
+      80% {
+        clip: rect(5px, 9999px, 80px, 0);
+        transform: translate(5px, -5px);
+      }
+
+      100% {
+        clip: rect(10px, 9999px, 115px, 0);
+        transform: translate(0);
+      }
+    }
+
+    #home p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      z-index: 4;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #home a.btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #9b59b6;
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 50px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      z-index: 4;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #home a.btn:hover {
+      background: #c15be1;
+      transform: scale(1.05);
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Sections */
+    #education-skills {
+      background: #1a001a;
+      scroll-snap-align: start;
+      padding: 120px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #experience {
+      background: #1e001a;
+      scroll-snap-align: start;
+      padding: 180px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #projects {
+      background: #22002f;
+      scroll-snap-align: start;
+      padding: 150px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #publications {
+      background: #1f001e;
+      scroll-snap-align: start;
+      padding: 180px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #Research {
+      background: #1f001e;
+      scroll-snap-align: start;
+      padding: 180px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+ 
+
+    #about {
+      background: #100015;
+      scroll-snap-align: start;
+      padding: 180px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    #contact {
+      background: #100015;
+      scroll-snap-align: start;
+      padding: 180px 0;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Section Transition */
+    section:not(#home) {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: transform 1.2s ease-out, opacity 1.2s ease-out;
+    }
+
+    section:not(#home).in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Content Container - widened for more breathing room */
+    .content-container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    section h2::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 3px;
+      background: #9b59b6;
+      border-radius: 3px;
+    }
+
+    /* Education & Skills Columns */
+    .columns {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.1 rem;
+      text-align: left;
+      font-size: 1rem;
+
+      padding: 20px;
+      border-radius: 10px;
+      background:#4d1f62;
+    }
+
+    .columns>div {
+      flex: 1;
+      margin: 0;        /* Remove margin */
+      padding: 0;       /* Remove padding */
+    }
+
+    .education img {
+      width: 40%;
+      height: 40%;
+      margin-top: 20px;
+      margin-left: 0px;
+      border-radius: 5px;
+    }
+
+    /* Redesigned Experience & Projects Items */
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 60px auto;
+      max-width: 1000px;
+      padding: 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .item-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    /* New rule to center an entire project item */
+    .item-row.centered {
+      justify-content: center;
+    }
+
+    .item-row img {
+      width: 40%;
+      border-radius: 10px;
+      display: block;
+      margin: 0 20px;
+    }
+
+    .description {
+      width: 55%;
+      text-align: left;
+      padding: 20px;
+    }
+
+    /* Center the description text for project 2 */
+    .item-row.centered .description {
+      text-align: center;
+    }
+
+    .description h3 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .date-range {
+      font-style: italic;
+      margin: 10px 0;
+      color: #d3c0eb;
+    }
+
+    .details {
+      list-style-type: disc;
+      padding-left: 20px;
+      text-align: left;
+    }
+
+    .details li {
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .columns {
+        flex-direction: column;
+      }
+
+      .item-row {
+        flex-direction: column;
+        max-width: 100%;
+      }
+
+      .item-row.reverse {
+        flex-direction: column;
+      }
+
+      .item-row img,
+      .description {
+        width: 100%;
+        padding: 0;
+      }
+
+      .description {
+        margin-top: 20px;
+        text-align: center;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: #0a001a;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    /* Back-to-Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #9b59b6;
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+
+    #backToTop:hover {
+      background: #8e44ad;
+    }
+
+    /* Responsive Navigation */
+    @media (max-width: 768px) {
+      #home h1 {
+        font-size: 3rem;
+
+      }
+
+      #home p {
+        font-size: 1.2rem;
+      }
+      
+      nav ul li {
+        margin: 0 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Scroll Indicator Arrows -->
+  <div id="scrollUp">↑</div>
+  <div id="scrollDown" style="margin-bottom: 60px;">↓</div>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education-skills">Education&nbsp;&amp;&nbsp;Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#Research">Research&nbsp;&amp;&nbsp;Fellowships</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home">
+    <div id="maskOverlay"></div>
+    <div class="content">
+      <h1 data-text="Marina Bellido Rodriguez">Marina Bellido Rodriguez</h1>
+      <p> Harvey Mudd Engineering Student </p>
+      <a href="#education-skills" class="btn">Learn More</a>
+    </div>
+  </section>
+
+
+     <!-- ABOUT -->
+     <section id="about" style="background-color: #add8e6; color: black; padding: -40px 80px;">
+      <div style="max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 20px;">
+        <div style="flex: 1;">
+          <h2>About</h2>
+          <p>
+            I am a rising senior engineering major at Harvey Mudd College interested in electrical and computer engineering/digital design. 
+            I'm currently doing research as a Clay-Wolkin Fellow at Harvey Mudd's VLSI lab developing a comprehensive open-source functional verification suite for RISC-V processors. I have experience with SystemVerilog 
+            and RISC-V assembly and would love to continue to grow my computer engineering skills. 
+            I'm always excited to learn new things and would be happy to connect with you! <br>
+          </p>
+        
+           <!--LINK: to contact -->
+           <a  href="#contact" class="btn" style="
+           display: inline-block;
+           margin-top: 20px;
+           padding: 10px 20px;
+           background-color: #6c3483;
+           color: white;
+           text-decoration: none;
+           border-radius: 6px;
+           transition: background-color 0.3s ease;">
+           Contact
+         </a>
+        </div>
+        <div>
+          <img src="marinapic.png" alt="Personal Pic" style="width: 400px; height: auto; border-radius: 50px;">
+        </div>
+      </div>
+    </section>
+
+
+  <!-- Combined Education & Skills Section with Columns -->
+  <section id="education-skills">
+    <div class="container content-container">
+      <h2>Education &amp; Skills</h2>
+      <div class="columns">
+        <div class="education">
+          <p>
+            <strong>Harvey Mudd College, Claremont, CA</strong><br>
+            BS in Engineering, Expected May 2026<br>
+            (Computer and Electrical Engineering) <br>
+            Minor in Environmental Analysis <br>
+            <br>
+            Tau Beta Pi Engineering Honor Society <br>
+            Ranked in top 10% of class <br>
+            <strong style="color: yellow;">Major 3.8 GPA</strong>
+          </p>
+          <!-- Education Picture -->
+          <img src="Hmc.png" alt="Education Picture" style="max-width: 1000px;">
+        </div>
+        <div class="skills">
+          <p>
+            <strong style="color: yellow;">Simulation & Verification Tools:</strong> ImperasDV, RISCOF, SAIL, Spike <br>
+            <strong style="color: yellow;">Software:</strong> GCC (GNU Compiler Collection), Git, Quartus Prime, QuestaIntel, LTspice, Labview, Figma,
+            Simulink, Synopsys, COMSOL, Teams, Excel, Dymola<br>
+            <strong style="color: yellow;">Programming:</strong> CircuitVerse, C, Java, MATLAB, Modelica, Python, RiscV Assembly, System
+            Verilog/Verilog <br>
+            <strong style="color: yellow;">Instrumentation:</strong> Digital Multimeter, Function Generator, Logic Analyzer, Oscilloscope, Spectrum Analyzer<br>
+            <strong style="color: yellow;">Manufacturing Machinery:</strong> 3D Printer, Laser cutter, Lathe, Mill, Water
+            Jet, Welder, Wood Machinery <br>
+            <strong style="color: yellow;">Languages:</strong> English (Fluent), Spanish (Native), German
+            (Intermediate), Catalan (Native)<br>
+            <strong style="color: yellow;">Soft Skills:</strong> National competitive golf player, fast learner,
+            critical thinker, problem solver, accountable, innovative, collaborative<br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Section -->
+  <section id="experience">
+    <div class="container content-container">
+      <h2>Professional Experience</h2>
+
+  
+      <!-- <div class="item-row reverse">
+        <img src="ExploraVist.png" alt="ExploraVist, Claremont, CA" />
+        <div class="description">
+          <h3>ExploraVist, Claremont, CA</h3>
+          <p class="date-range">Dec 2024 - May 2025</p>
+          <ul class="details">
+            <li>Integrated sensory substitution techniques using cameras, microphones, and laser sensors, reducing
+              latency by over 50%.</li>
+            <li>Developed C++ software for an AI-driven device with 91.2% object recognition accuracy.</li>
+            <li>Designed prototypes with ESP32-S3 microcontrollers, reducing power usage by 30%.</li>
+            <li>Enhanced usability by 40% through iterative testing and multidisciplinary collaboration.</li>
+          </ul>
+        </div>
+      </div> -->
+       <!-- Experience Item 1 -->
+      <div class="item-row reverse">
+        <img src="10xengineers.jpeg" alt="Clinic Program Project" />
+        <div class="description">
+          <h3>Harvey Mudd Clinic Program (10x Engineers)</h3>
+          <p class="position-title">RISC-V Architectural Verification Developer</p>
+          <p class="date-range">Jan 2024 – May 2024</p>
+          <ul class="details">
+            <li>Worked with a sponsoring company to develop a RISC-V architectural verification suite for validating ISA compliance. <a href="URL-to-final-report.pdf" target="_blank">[Final Report]</a></li>
+            <li>Collaborated on system design, test infrastructure, and documentation for industry deployment.</li>
+              <!--LINK: RV12 links to plane build -->
+              <a href="CWfellow.html" class="btn" style="
+              display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+              </a>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Experience Item 2 -->
+      <div class="item-row">
+        <img src="Sokil2.png" alt=" Hmc Startup Sokil Imaging" />
+        <div class="description">
+          <h3> Hmc Startup Sokil Imaging, Claremont, CA</h3>
+          <p class="position-title">Developing accessible UAV magnetometry systems to accelerate humanitarian demining</p>
+          <p class="position-title">Mechanical Engineering Team</p>
+          <p class="date-range">June 2024 - November 2024</p>
+          <ul class="details">
+            <li>Contributed to the mechanical design and manufacturing of the second-generation UAV magnetometry system.</li>
+            <li>Selecting and assembling the drone that carries the UAV magnetometer system. </li>
+            <li> Configured the setup with ExpressLRS for RC communication and telemetry, using CRSF and MAVLink protocols.</li>
+ 
+              <a href="https://sokil.io" class="btn" style="
+              display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Webpage
+              </a>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Experience Item 3 -->
+      <div class="item-row reverse">
+        <img src="Endura.jpg" alt="Endura Technologies, Miramar, CA" />
+        <div class="description">
+          <h3>Endura Technologies, Miramar, CA</h3>
+          <p class="position-title">Software Engineering Intern</p>
+          <p class="date-range">May 2023 - Jul 2023</p>
+          <ul class="details">
+            <li>Developed a Python-based GUI for data acquisition and processing.</li>
+            <li>Fixed and rebooted computers for software compatibility, and optimised the lab distribution. </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container content-container">
+      <h2>Projects</h2>
+
+      <!-- Project Item 1: PLANE -->
+      <div class="item-row" style="display: flex; gap: 20px; align-items: flex-start;">
+        <img src="plane.jpeg" alt="Building an RV12 aircraft" style="width: 350px; border-radius: 8px;  margin-top: 20px;" />
+
+        <div class="description">
+          <h3>Building an RV12 aircraft</h3>
+          <p class="date-range">June–July 2024 & Jan–May 2025</p>
+          <ul class="details">
+            <li>Building an experimental aircraft, a Vans RV12is two-seat light sport aircraft fabricated primarily from
+              sheet metal and pop rivets, with a 100 horsepower Rotax engine and Garmin VFR avionics. </li>
+            <!--LINK: RV12 links to plane build -->
+            <a href="rv12.html" class="btn" style="
+              display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+            </a>
+          </ul>
+        </div>
+      </div>
+
+
+
+      <!-- Project Item 2: RF Project -->
+      <div class="item-row">
+        <img src="RF.jpeg" alt="RF Receiver Design for Communication Systems " />
+        <div class="description">
+          <h3>RF Receiver Design for Communication Systems</h3>
+          <p class="date-range">December 2024</p>
+          <ul class="details">
+            <li>Designed and implemented an RF receiver using direct downconversion and direct sampling with Mini-Circuits modules to decode a
+              transmitted message, achieving successful reception at a range of approximately 80 meters.</li>
+            <li>Calculated the theoretical signal, noise, and distortion levels for the receiver chain and compared them with measured data.</li>
+
+            <!--LINK: RF links to plane build -->
+            <a href="RF.html" class="btn" style="
+              display: inline-block;
+              margin-top: 30px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+            </a>
+          </ul>
+        
+        </div>
+      </div>    
+      <!-- </div> -->
+
+      <!-- Project Item 3: Designed a Multicycle RISC-V Processor -->
+      <div class="item-row">
+        <img src="multicycleprocessor.png" alt="Designed a Multicycle RISC-V Processor" />
+        <div class="description">
+          <h3>Designed a Multicycle RISC-V Processor</h3>
+          <p class="date-range">November 2024</p>
+          <ul class="details">
+            <li>Designed and implemented a multicycle RISC-V processor in SystemVerilog with unified memory and modified control signals.</li>
+            <li>Simulated and verified functionality on Intel Quartus, achieving full test coverage and adapting single-cycle components.</li>
+            <!--LINK: RISCV E85 links to plane build -->
+            <a href="riscve85.html" class="btn" style="
+              display: inline-block;
+              margin-top: 30px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+            </a>
+          </ul>
+        
+        </div>
+      </div>
+    
+      <!-- Project Item 4: AUV E80 -->
+      <div class="item-row">
+        <img src="AUV3.jpeg" alt="Autonomous Underwater Vehicle (AU)" />
+        <div class="description">
+          <h3>Autonomous Underwater Vehicle Design</h3>
+          <p class="position-title"> Hardware engineering, Team Lead</p>
+          <p class="date-range">Jan 2024 - May 2024</p>
+          <ul class="details">
+            <li>Designed and built an AUV equipped with an anemometer, water flow, and underwater light analysis sensors, utilizing the Teensy 4.1
+              microcontroller. The AUV used Kp control for autonomous navigation.</li>
+            <li>Deployed AUV at Dana Point for verification and data collection, ensuring accurate environmental measurements</li>
+            <!--LINK: RV12 links to plane build -->
+            <a href="E80.html" class="btn" style="
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #6c3483;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;">
+            Learn More
+          </a>
+        </ul>
+        </div>
+      </div>
+    </div>
+    
+
+
+    <!-- Project Item 2 (Centered in the section)
+    <div class="item-row centered">
+      <div class="description">
+        <h3>Temperature Logger Project</h3>
+        <p class="date-range">Sep 2024 - Jan 2025</p>
+        <ul class="details">
+          <li>Built a mixed-signal system using an LM35 sensor and Arduino for precise temperature measurement.</li>
+          <li>Developed firmware for ADC processing and an LCD display for real-time readings.</li>
+        </ul>
+      </div>
+    </div> -->
+      <!--Designed an AUV with sensors for pressure, salinity, turbidity, and depth using a Teensy 4.1. -->
+      <!--Achieved 98% data accuracy with rigorous calibration and real-time data transmission.-->
+    <!-- </div>
+  </section> -->
+
+
+    <!-- Research Section -->
+    <section id="Research">
+      <div class="container content-container">
+        <h2> Research and Fellowships </h2>
+        <div class="item-row" style="display: flex; gap: 20px; align-items: flex-start;">
+          <img src="CW.jpeg" alt="Clay-Wolkin Fellowship at Harvey Mudd's VLSI lab" style="width: 350px; border-radius: 8px;  margin-top: 100px;" />
+          <div class="description">
+            <h3>Clay-Wolkin Fellowship at Harvey Mudd's VLSI lab</h3>
+            <p class="date-range"> February 2024 - Ongoing</p>
+            <ul class="details">
+            <li> Conducting research as a Clay-Wolkin Fellow, developing a comprehensive open-source RISC-V architectural functional verification suite that has been approved 
+              to become the official version 4.0 of the RISC-V Architectural Verification Test Suite for RISC-V International.</li>
+
+              <!--LINK: RV12 links to plane build -->
+              <a href="CWfellow.html" class="btn" style="
+              display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+              </a>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item-row" style="display: flex; gap: 20px; align-items: flex-start;">
+          <img src="hplab.jpeg" alt="RESIST Lab" style="width: 350px; border-radius: 8px;  margin-top: 100px;" />
+          <div class="description">
+            <h3>Reducing Costs for Space- and Water-Heating in Multifamily Buildings</h3>
+            <p class="date-range">May 2024 - July 2024</p>
+            <ul class="details">
+            <li> Modeled and validated the field-demonstrated system using Modelica, compared simulation results with live data, assessed
+                discrepancies, and extended the valid model to other cases using Model-Based Design.</li>
+            <li>Explored the integration of heat pumps with phase-change thermal storage to enhance energy efficiency, & flexibility with
+              electrification</li>
+            <li>Contributed to a research paper under review for publication with the U.S Department of Energy</li>
+              <!--LINK: RV12 links to plane build -->
+              <a href="hpresearch.html" class="btn" style="
+              display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: #6c3483;
+              color: white;
+              text-decoration: none;
+              border-radius: 6px;
+              transition: background-color 0.3s ease;">
+              Learn More
+              </a>
+            </ul>
+          </div>
+        </div>
+
+        
+      </div>
+    </section>
+
+
+  
+
+
+
+  <!-- Publications & Presentations Section -->
+  <section id="publications">
+    <div class="container content-container">
+
+      <h2>Publications &amp; Presentations</h2>
+      <p>
+      <div class="item-row centered">
+        <div class="description">
+          <h3>Publication</h3>
+          <p class="date-range"></p>
+          <ul class="details">
+            <li><strong>R32 Air-to-Water Heat Pump Model Validation</strong> (under review). Submitted to the U.S. Department of Energy. Co-author.</li>
+          </ul>
+        </div>
+      </div>
+      </p>
+    </div>
+  </section>
+
+
+ 
+
+
+  <!-- Contact Section -->
+  <section id="contact" style="background-color: #add8e6; color: black; padding: 40px 20px;">
+    <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; gap: 20px;">
+      <div style="flex: 1;">
+        <h2>Contact</h2>
+        <p>
+          Claremont, CA 91711<br>
+          Email:
+          <a href="mailto:mbellido@hmc.edu" style="color: #6c3483;">mbellido@hmc.edu</a><br>
+          Phone (US): +1 840-999-0466<br>
+          Phone (Spain): +34 697 78 12 49 <br>
+          LinkedIn:
+          <a href="https://www.linkedin.com/in/marina-bellido-hmc" target="_blank" style="color: #6c3483;">
+            www.linkedin.com/in/marina-bellido-hmc
+          </a>
+          Github:
+          <a href="https://github.com/Marina-Bellido?tab=overview&from=2025-05-01&to=2025-05-31" target="_blank" style="color: #6c3483;">
+            https://github.com/Marina-Bellido.com
+          </a>
+        </p>
+      </div>
+      <div>
+        <img src="marinapic.png" alt="Personal Pic" style="width: 300px; height: auto; border-radius: 10px;">
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <div style="text-align: center; margin-bottom: 100px;"></div>
+
+
+
+  </div>
+  </section>
+
+
+
+
+
+
+  <script>
+    function observeSections() {
+      const sections = document.querySelectorAll("section");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", observeSections);
+  </script>
+
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Marina Bellido Rodriguez. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back-to-Top Button -->
+  <button id="backToTop">Top</button>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // IntersectionObserver for section visibility with a lower threshold for better responsiveness
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(section => observer.observe(section));
+
+    // Back-to-Top Button logic
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Scroll Indicator Arrows
+    document.getElementById('scrollDown').addEventListener('click', () => {
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    });
+    document.getElementById('scrollUp').addEventListener('click', () => {
+      window.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+    });
+
+    // Mask Overlay: Reveal a circular area under the mouse
+    const homeSection = document.getElementById('home');
+    const maskOverlay = document.getElementById('maskOverlay');
+
+    homeSection.addEventListener('mousemove', (e) => {
+      const rect = homeSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const gradient = `radial-gradient(circle at ${x}px ${y}px, transparent 100px, black 370px)`;
+      maskOverlay.style.maskImage = gradient;
+      maskOverlay.style.webkitMaskImage = gradient;
+    });
+
+    homeSection.addEventListener('mouseleave', () => {
+      const fallback = `linear-gradient(black, black)`;
+      maskOverlay.style.maskImage = fallback;
+      maskOverlay.style.webkitMaskImage = fallback;
+    });
+
+
+
+  </script>
+</body>
+
+</html>
