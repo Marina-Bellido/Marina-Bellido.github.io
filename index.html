@@ -556,6 +556,21 @@
       background: rgba(255, 255, 255, 0.06);
     }
 
+    .project-card .project-image {
+      display: block;
+      width: 100%;
+      height: 180px;
+      margin-bottom: 14px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .project-card .project-image.diagram {
+      padding: 4px;
+      background: #ffffff;
+      object-fit: contain;
+    }
+
     .project-card p {
       margin: 10px 0 16px;
     }
@@ -736,6 +751,7 @@
           <a href="E155_Project/" class="btn">View Project</a>
         </article>
         <article class="project-card">
+          <img src="multicycleprocessor.png" alt="Multicycle RISC-V processor datapath" class="project-image diagram" loading="lazy" />
           <h3>Multicycle RISC-V Processor</h3>
           <p class="date-range">Nov 2024</p>
           <p>Designed and verified a multicycle RISC-V processor in SystemVerilog with unified memory and custom control logic; passed the Intel Quartus test suite.</p>
@@ -752,6 +768,7 @@
           <p>Designed, built, and characterized a five-stage discrete BJT op-amp; validated open- and closed-loop behavior against analysis and simulation.</p>
         </article>
         <article class="project-card">
+          <img src="RF.jpeg" alt="RF receiver project" class="project-image" loading="lazy" />
           <h3>RF Receiver Design for Communication Systems</h3>
           <p class="date-range">Dec 2024</p>
           <p>Built a direct-downconversion/direct-sampling receiver with Mini-Circuits modules and compared theoretical and measured signal, noise, and distortion.</p>
@@ -763,12 +780,14 @@
           <p>Designed an IEEE 754 half-precision FMA in Verilog for graphics; passed Verilator lint and baseline functional tests.</p>
         </article>
         <article class="project-card">
+          <img src="AUV3.jpeg" alt="Autonomous underwater vehicle" class="project-image" loading="lazy" />
           <h3>Autonomous Underwater Vehicle — Hardware Lead</h3>
           <p class="date-range">Jan 2024 – May 2024</p>
           <p>Led hardware development of an autonomous underwater vehicle with Teensy 4.1 sensor integration and proportional autonomous navigation.</p>
           <a href="E80.html" class="btn">View Project</a>
         </article>
         <article class="project-card">
+          <img src="plane.jpeg" alt="Van's RV-12 aircraft build" class="project-image" loading="lazy" />
           <h3>Van’s RV-12 Light-Sport Aircraft Build</h3>
           <p class="date-range">2024 – 2025</p>
           <p>Constructed a two-seat Van’s RV-12 with a 100 hp Rotax engine and Garmin VFR avionics.</p>
@@ -833,6 +852,7 @@
       <div style="flex: 1;">
         <h2>Contact</h2>
         <p>
+          Location: Atlanta, GA<br>
           Email: <a href="mailto:marina.bellido25@gmail.com" style="color: #6c3483;">marina.bellido25@gmail.com</a><br>
           Phone: +1 840-999-0466<br>
           LinkedIn: <a href="https://www.linkedin.com/in/marina-bellido-hmc" target="_blank" rel="noopener noreferrer" style="color: #6c3483;">linkedin.com/in/marina-bellido-hmc</a><br>
